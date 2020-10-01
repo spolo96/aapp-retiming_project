@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Advanced Algorithms and Parallel Programming
-# ## Summer Session Project on Advanced Algorithms
-# ## Student: Samuel Polo - 10670388
+# ## Import Graph-Tool Module
+import graph_tool.all as gt
+import numpy as np
+import time
+import sys
+
+print("Advanced Algorithms and Parallel Programming\n")
+print("Summer Session Project on Advanced Algorithms\n")
+print("Student: Samuel Polo - 10670388\n")
 
 # # General Notebook
 
-# ## Retiming of a Circuit Graph
+print("Retiming of a Circuit Graph")
 # 
 # Problem: Optimize frequency of a circuit
 # 
@@ -15,17 +21,6 @@
 # Move register(s) so that:
 # 	- clock cycle decreases or number of registers decreases.
 # 	- input-output behavior is preserved.
-
-# ## Import Graph-Tool Module
-
-# In[1]:
-
-
-import graph_tool.all as gt
-import numpy as np
-import time
-import sys
-
 
 # # Retiming Graph Example
 
@@ -35,6 +30,7 @@ import sys
 # ## Example 
 
 #Example taken from: [1] 
+print("Example from Retiming Paper: ")
 g = gt.Graph()
 
 edge_weight = g.new_edge_property("double")
@@ -99,7 +95,7 @@ def sample_k(): #Sample to generate the In and Out Degree of each node in the gr
     #Taken from Graph-Tool documentation: A degree sampler function which is called without arguments, and returns a 
     #tuple of ints representing the in and out-degree of a given vertex (or a single int for undirected graphs, 
     #representing the out-degree).
-    inOutDegree = np.random.randint(maxNodeDegree, size=2)
+    inOutDegree = np.random.randint(4, size=2)
     if (inOutDegree[0] == 0): #Since all the graph needs to be connected, we impose at least one edge for each node.
         inOutDegree[0] = 1
     if (inOutDegree[1] == 0): #Since all the graph needs to be connected, we impose at least one edge for each node.
@@ -419,7 +415,7 @@ def WD(graph): #Algorithm WD that computes both the W and the D matrix from a kn
 # In[9]:
 
 
-def FEAS(g, c): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock period and optimal retiming found.  
+def FEAS(g, c, display=True): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock period and optimal retiming found.  
                 #For visualization purposes, the majority of graph drawings, sorts and other data outputs no more important 
                 #than the clock period and the retiming is omitted to show a clean answer.
                 #The notebook: 'RetimingProject_10670388_FEAS' shows the solution with more steps. 
@@ -456,12 +452,12 @@ def FEAS(g, c): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock per
     #print("FEAS Algorithm finished with c: "+str(c))
     #print("Clock Period of the graph is: " + str(clockPeriod))
 
-    
-    #if (clockPeriod > c):
-     #   print("No feasible retiming exists.")
-    #else:
-     #   print("Retiming: %s is the desired retiming." % (retimings))
-        
+    if (display):
+        if (clockPeriod > c):
+            print("No feasible retiming exists.")
+        else:
+            print("Retiming: %s is the desired retiming." % (retimings))
+            
     return clockPeriod, retimings
 
 
@@ -610,7 +606,7 @@ def OPT2(graph): #Algorithm OPT2 from the Reference paper. Complexity of the alg
         c = copyD[i]
         #print("Test with C: "+str(c))
         
-        solution = FEAS(graph,c) #Execute FEAS Algorithm that will give us a tuple = [clock_period, retimings]
+        solution = FEAS(graph,c,False) #Execute FEAS Algorithm that will give us a tuple = [clock_period, retimings]
         
         clockPeriod = solution[0]
         retimings = solution[1]

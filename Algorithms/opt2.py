@@ -18,7 +18,7 @@ def OPT2(graph): #Algorithm OPT2 from the Reference paper. Complexity of the alg
         c = copyD[i]
         #print("Test with C: "+str(c))
         
-        solution = FEAS(graph,c) #Execute FEAS Algorithm that will give us a tuple = [clock_period, retimings]
+        solution = FEAS(graph,c, False) #Execute FEAS Algorithm that will give us a tuple = [clock_period, retimings]
         
         clockPeriod = solution[0]
         retimings = solution[1]

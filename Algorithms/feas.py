@@ -4,7 +4,7 @@ import time
 import sys
 from cp import cp
 
-def FEAS(g, c): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock period and optimal retiming found.  
+def FEAS(g, c, display=True): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock period and optimal retiming found.  
                 #For visualization purposes, the majority of graph drawings, sorts and other data outputs no more important 
                 #than the clock period and the retiming is omitted to show a clean answer.
                 #The notebook: 'RetimingProject_10670388_FEAS' shows the solution with more steps. 
@@ -41,10 +41,10 @@ def FEAS(g, c): #Input: Graph g, clock period 'c' from D(u,v); Output: Clock per
     #print("FEAS Algorithm finished with c: "+str(c))
     #print("Clock Period of the graph is: " + str(clockPeriod))
 
-    
-    if (clockPeriod > c):
-        print("No feasible retiming exists.")
-    else:
-        print("Retiming: %s is the desired retiming." % (retimings))
+    if (display):
+        if (clockPeriod > c):
+            print("No feasible retiming exists.")
+        else:
+            print("Retiming: %s is the desired retiming." % (retimings))
         
     return clockPeriod, retimings

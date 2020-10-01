@@ -7,7 +7,7 @@ def sample_k(): #Sample to generate the In and Out Degree of each node in the gr
     #Taken from Graph-Tool documentation: A degree sampler function which is called without arguments, and returns a 
     #tuple of ints representing the in and out-degree of a given vertex (or a single int for undirected graphs, 
     #representing the out-degree).
-    inOutDegree = np.random.randint(5, size=2)
+    inOutDegree = np.random.randint(4, size=2)
     if (inOutDegree[0] == 0): #Since all the graph needs to be connected, we impose at least one edge for each node.
         inOutDegree[0] = 1
     if (inOutDegree[1] == 0): #Since all the graph needs to be connected, we impose at least one edge for each node.
