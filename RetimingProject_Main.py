@@ -6,6 +6,7 @@ import graph_tool.all as gt
 import numpy as np
 import time
 import sys
+import matplotlib.pyplot as plt
 
 print("Advanced Algorithms and Parallel Programming\n")
 print("Summer Session Project on Advanced Algorithms\n")
@@ -27,50 +28,6 @@ print("Retiming of a Circuit Graph")
 #Example taken from: https://people.eecs.berkeley.edu/~keutzer/classes/244fa2005/lectures/8-2-retiming-ucb.pdf and 
 #SummerSessionProjectAA.pptx
 
-# ## Example 
-
-#Example taken from: [1] 
-print("Example from Retiming Paper: ")
-g = gt.Graph()
-
-edge_weight = g.new_edge_property("double")
-g.edge_properties["weight"] = edge_weight
-edge_str_weight = g.new_edge_property("string")
-
-vlist = g.add_vertex(8) #Creation of vertices. Array of Vertices 
-
-edges = [[0,1],[1,7],[1,2],[2,6],[2,3],[3,4],[3,5],[4,5],[5,6],[6,7],[7,0]] #array of Edges 
-
-nodeCapacity = [0,3,3,3,3,7,7,7] #Aka "d(node_i)" #Array d(v) in the paper (Propagation delay)
-
-cap = g.new_vertex_property("int")
-
-weights = [1,0,1,0,1,1,0,0,0,0,0,0] #array of weights "w" (Register count) 
-#print(edges[0][1])
-
-for i in range(len(list(vlist))):
-    #g.vp.cap[g.vertex(i)] = nodeCapacity[i] //Documentation Bug
-    cap[i] = nodeCapacity[i]
-
-g.vertex_properties["cap"] = cap    #Array d(v) in the paper (Propagation delay)
-
-for i in range(len(edges)):
-    e = g.add_edge(edges[i][0], edges[i][1])
-    #randomNumber = np.random.randint(10)
-    g.ep.weight[e] = weights[i]
-    edge_str_weight[e] = str(weights[i])
-    
-print(g)
-
-#for e in g.edges():
-    #print(edge_weight[e])
-
-for v in g.vertices():
-    print("Vertex %s with capacity: %s" % (v, g.vp.cap[v]))
-    
-print(g.list_properties())
-
-
 # # Implemented Algorithms
 
 # ## Graph Generators
@@ -90,6 +47,19 @@ print(g.list_properties())
 
 # In[4]:
 
+def showTimeGraph(x1,y1,x2,y2): #Shows the asymptotic complexity of 
+    fig, ax = plt.subplots() # Create a figure and an axes.
+    ax.plot(x1,y1, label='OPT1') # Plot some data on the axes.
+    ax.plot(x2,y2, label='OPT2') #Plot more data on the axes.
+
+    ax.set(xlabel='Input (nodes and edges)', ylabel='Time (s)',
+        title='Asymptotic Complexity')
+    ax.grid()
+    ax.legend()  # Add a legend.
+
+    fig.savefig("asymptoticComplexity_Time.png")
+    plt.show()
+    return 1
 
 def sample_k(): #Sample to generate the In and Out Degree of each node in the graph. 
     #Taken from Graph-Tool documentation: A degree sampler function which is called without arguments, and returns a 
@@ -651,3 +621,49 @@ def OPT2(graph): #Algorithm OPT2 from the Reference paper. Complexity of the alg
 # [3] Profiling and Timing Code: https://jakevdp.github.io/PythonDataScienceHandbook/01.07-timing-and-profiling.html
 # 
 # [4] SnakeViz: https://jiffyclub.github.io/snakeviz/
+
+# ## Example 
+
+#Example taken from: [1] 
+print("Example from Retiming Paper: ")
+g = gt.Graph()
+
+edge_weight = g.new_edge_property("double")
+g.edge_properties["weight"] = edge_weight
+edge_str_weight = g.new_edge_property("string")
+
+vlist = g.add_vertex(8) #Creation of vertices. Array of Vertices 
+
+edges = [[0,1],[1,7],[1,2],[2,6],[2,3],[3,4],[3,5],[4,5],[5,6],[6,7],[7,0]] #array of Edges 
+
+nodeCapacity = [0,3,3,3,3,7,7,7] #Aka "d(node_i)" #Array d(v) in the paper (Propagation delay)
+
+cap = g.new_vertex_property("int")
+
+weights = [1,0,1,0,1,1,0,0,0,0,0,0] #array of weights "w" (Register count) 
+#print(edges[0][1])
+
+for i in range(len(list(vlist))):
+    #g.vp.cap[g.vertex(i)] = nodeCapacity[i] //Documentation Bug
+    cap[i] = nodeCapacity[i]
+
+g.vertex_properties["cap"] = cap    #Array d(v) in the paper (Propagation delay)
+
+for i in range(len(edges)):
+    e = g.add_edge(edges[i][0], edges[i][1])
+    #randomNumber = np.random.randint(10)
+    g.ep.weight[e] = weights[i]
+    edge_str_weight[e] = str(weights[i])
+    
+print(g)
+
+#for e in g.edges():
+    #print(edge_weight[e])
+
+for v in g.vertices():
+    print("Vertex %s with capacity: %s" % (v, g.vp.cap[v]))
+    
+print(g.list_properties())
+gt.graph_draw(g, vertex_text=g.vp.cap, edge_text=edge_str_weight, output="example.pdf")
+
+showTimeGraph([1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [2,4,6,8,10])
