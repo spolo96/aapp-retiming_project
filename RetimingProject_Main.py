@@ -666,4 +666,32 @@ for v in g.vertices():
 print(g.list_properties())
 gt.graph_draw(g, vertex_text=g.vp.cap, edge_text=edge_str_weight, output="example.pdf")
 
-showTimeGraph([1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [2,4,6,8,10])
+#TestProfiler (with Lists instead of NumpyArrays)
+opt1x = []
+opt1y = []
+opt2x = []
+opt2y = []
+
+for i in range(5):
+    x = (i+1)*10
+    g = graphCorrelator(x)
+
+    #OPT1
+    start = time.time()
+    OPT1(g)
+    end = time.time()
+    y = end-start
+
+    opt1x.append(x)
+    opt1y.append(y)
+
+    #OPT2
+    start = time.time()
+    OPT2(g)
+    end = time.time()
+    y = end-start
+
+    opt2x.append(x)
+    opt2y.append(y)
+
+showTimeGraph(opt1x, opt1y, opt2x, opt2y)
