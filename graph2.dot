@@ -1,0 +1,12 @@
+digraph g {
+    forcelabels=true;
+    a [label="0", xlabel="0"];
+    b [label="1", xlabel="3"];
+    c [label="2", xlabel="3"];
+    d [label="3", xlabel="7"];
+    a->b[weight="2"];
+    b->c[weight="0"];
+    b->d[weight="0"];
+    c->d[weight="0"];
+    d->a[weight="0"];
+}

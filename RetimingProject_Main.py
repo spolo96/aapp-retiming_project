@@ -619,7 +619,6 @@ def OPT2(graph, displayData=True): #Algorithm OPT2 from the Reference paper. Com
         print("Minimum Achievable Clock Period is: %s with retiming: %s" % (minimumClockPeriod, optimalRetiming))
         return minimumClockPeriod, optimalRetiming
 
-
 # Complexity of OPT2: O(|V| |E| lg |V|)
 
 # # Algorithm Execution

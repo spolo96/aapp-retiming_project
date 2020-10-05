@@ -1,0 +1,18 @@
+In order fot a .DOT file to be properly loaded into the command tool, it has to follow this specific example: 
+
+digraph g {
+    forcelabels=true;
+    a [label="0", xlabel="0"];
+    b [label="1", xlabel="3"];
+    c [label="2", xlabel="3"];
+    d [label="3", xlabel="7"];
+    a-> b[weight="2"];
+    b->c[weight="0"];
+    b->d[weight="0"];
+    c->d[weight="0"];
+    d->a[weight="0"];
+}
+
+Where "xlabel" would be the propagation delay assigned to the specific index. 
+
+After creating the .DOT file, we need to hardcode and put the name of the file we created in customGraph method from RetimingProject_Colabversion so we can perform operations like OPT1 and OPT2 inside it. 
