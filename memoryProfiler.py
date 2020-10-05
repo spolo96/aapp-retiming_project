@@ -3,10 +3,19 @@ from memory_profiler import memory_usage
 from memory_profiler import profile
 import sys
 
-def memoryProfiler(maxSize):
+def memoryProfiler(maxSize, graphType):
     for i in range(maxSize):
         x = (i+1)*10
-        g = graphCorrelator(x)
+        
+        if (graphType == "generator"):
+            g = graphGenerator(x)
+        elif (graphType == "correlator") :
+            g = graphCorrelator(x)
+
+        else:
+            print("Error. You should test the profiler with either graph generator or correlator.")
+            print("Example: python3 profiler.py generator/correlator 10")
+            break
 
         # OPT1
         memUsage = memory_usage(OPT1(g,False), interval=.2, timeout=1)
@@ -29,10 +38,10 @@ opt1y = []
 opt2x = []
 opt2y = []
 
-if(len(sys.argv)==1):
-    print("Error. You must specify the value to iterate. E.g: python3 memoryProfiler.py 10")
+if(len(sys.argv) <=2):
+    print("Error. You must specify the value to iterate. E.g: python3 memoryProfiler.py graph/correlator 10")
 else:
-    memoryProfiler(int(sys.argv[1]))
+    memoryProfiler(int(sys.argv[2]), sys.argv[1])
     showMemoryGraph(opt1x, opt1y, opt2x, opt2y)
 
 
