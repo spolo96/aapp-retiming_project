@@ -1,32 +1,36 @@
 from RetimingProject_Main import *
 from memory_profiler import memory_usage
 
-#TestProfiler (with Lists instead of NumpyArrays)
-opt1x = []
-opt1y = []
-opt2x = []
-opt2y = []
+import sys
 
-for i in range(5):
-    x = (i+1)*10
-    g = graphCorrelator(x)
+if(len(sys.argv)==1):
+    print("Error. You must specify the value to iterate. E.g: python3 timeProfiler.py 10")
+else:
+    opt1x = []
+    opt1y = []
+    opt2x = []
+    opt2y = []
 
-    #OPT1
-    start = time.time()
-    OPT1(g)
-    end = time.time()
-    y = end-start
+    for i in range(int(sys.argv[1])):
+        x = (i+1)*10
+        g = graphCorrelator(x)
 
-    opt1x.append(x)
-    opt1y.append(y)
+        #OPT1
+        start = time.time()
+        OPT1(g)
+        end = time.time()
+        y = end-start
 
-    #OPT2
-    start = time.time()
-    OPT2(g)
-    end = time.time()
-    y = end-start
+        opt1x.append(x)
+        opt1y.append(y)
 
-    opt2x.append(x)
-    opt2y.append(y)
+        #OPT2
+        start = time.time()
+        OPT2(g)
+        end = time.time()
+        y = end-start
 
-showTimeGraph(opt1x, opt1y, opt2x, opt2y)
+        opt2x.append(x)
+        opt2y.append(y)
+        showTimeGraph(opt1x, opt1y, opt2x, opt2y)
+

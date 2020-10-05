@@ -5,7 +5,6 @@ import sys
 if(len(sys.argv)==1):
     print("Error. You must specify the value to iterate. E.g: python3 profiler.py 10")
 else:
-    print(sys.argv[1])
     #TestProfiler (with Lists instead of NumpyArrays)
     opt1x = []
     opt1y = []

@@ -1,4 +1,4 @@
-In order fot a .DOT file to be properly loaded into the command tool, it has to follow this specific example: 
+In order for a .DOT file to be properly loaded into the command tool, it has to follow this specific example: 
 
 digraph g {
     forcelabels=true;
